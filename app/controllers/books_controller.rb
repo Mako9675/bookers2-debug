@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!, except: [:top]
 
+
   def show
     @book = Book.find(params[:id])
     @books = Book.new
@@ -49,4 +50,5 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body, :profile_image)
   end
+  
 end
