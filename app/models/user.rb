@@ -11,8 +11,8 @@ class User < ApplicationRecord
   
   has_many :relationships, class_name: "Relationship", foreign_key: "follow_id", dependent: :destroy
   has_many :reverse_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
-  has_many :followings, through: :favorites, source: :follow
-  has_many :followers, through: :reverse_favorites, source: :follower
+  has_many :followings, through: :relationships, source: :follow
+  has_many :followers, through: :reverse_relationships, source: :follower
   
   
   validates :name, length: { minimum:2, maximum: 20 }, uniqueness: true
@@ -30,11 +30,11 @@ class User < ApplicationRecord
   
   # フォローしたときの処理
   def follow(user_id)
-    relationships.create(followed_id: user_id)
+    relationships.create(follow_id: user_id)
   end
   # フォローを外すときの処理
   def unfollow(user_id)
-    relationships.find_by(followed_id: user_id).destroy
+    relationships.find_by(follower_id: user_id).destroy
   end
   # フォローしているか判定
   def following?(user)
