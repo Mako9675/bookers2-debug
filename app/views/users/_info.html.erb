@@ -11,13 +11,18 @@
   <tr>
     <th>follows</th>
     <th>
-      <%= link_to  do %> 
-        <%= user.followings.count %></th>
+      <%= link_to user_following_path(user) do %> 
+        <%= user.followings.count %>
       <% end %>
+    </th>
   </tr>
   <tr>
     <th>followers</th>
-    <th><%= user.followers.count %></th>
+    <th>
+      <%= link_to user_follower_path(user) do %> 
+        <%= user.followers.count %>
+      <% end %>
+    </th>
   </tr>
 </table>
 <div class = "m-1">
