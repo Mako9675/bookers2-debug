@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
-    
+    @group.users << current_user
     if @group.save
       redirect_to groups_path,notice: "successfully."
     else
@@ -43,15 +43,17 @@ class GroupsController < ApplicationController
   end
 
   def join
-    @group = Group.find(params[:id])
+    @group = Group.find(params[:group_id])
     @group.users << current_user
     redirect_to  groups_path
   end
   
   def destroy
     @group = Group.find(params[:id])
-    if @group.user.destroy(current_user)
+    if @group.users.destroy(current_user)
       redirect_to groups_path
+    end
+  end
   
   private
     def group_params
