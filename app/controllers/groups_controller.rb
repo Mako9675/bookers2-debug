@@ -8,9 +8,10 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    @group.owner_id = current_user
+    @group.owner_id = current_user.id
+    
     if @group.save
-      redirect_to groups_path
+      redirect_to groups_path,notice: "successfully."
     else
       render :new
     end
@@ -30,17 +31,20 @@ class GroupsController < ApplicationController
 
   def edit
     @group = Group.find(params[:id])
-    @group.owner_id = current_user
   end
 
   def update
     @group = Group.find(params[:id])
-    @group.update(group_params)
+    if @group.update(group_params)
+      redirect_to groups_path,notice: "successfully."
+    else
+      render :edit
+    end
   end
   
   private
     def group_params
-      params.require(:book).permit(:name, :introduction, :group_image)
+      params.require(:group).permit(:name, :introduction, :group_image)
     end
       
     def ensure_correct_user
