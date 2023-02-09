@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
   
-  get 'groups/new'
-  get 'groups/create'
-  get 'groups/index'
-  get 'groups/show'
-  get 'groups/edit'
-  get 'groups/update'
   devise_for :users
   root to: 'homes#top'
   get 'home/about' => "homes#about"
@@ -20,6 +14,8 @@ Rails.application.routes.draw do
     get 'relationship/following' => "relationships#following", as: 'following'
     get 'relationship/follower' => "relationships#follower", as: 'follower'
   end
+  
+  resources :groups, only: [:new, :index, :show, :edit, :create, :update]
   
   get 'searches/search' => "searches#search", as: 'search'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
