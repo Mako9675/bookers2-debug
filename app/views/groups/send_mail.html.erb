@@ -1,0 +1,17 @@
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-6 col-md-8 col-lg-3 px-5 px-sm-0 mx-auto">
+      <h3 class="text-center">送信が完了しました</h3>
+      <div>
+        <div>内容は以下の通りです。</div>
+        <div>
+          [タイトル]<p class="font-weight-bold"> <%= @mail_title %></p>
+        </div>
+        <div>
+          [本文]<p class="font-weight-bold"> <%= safe_join(@mail_content.split("\n"),tag(:br)) %></p>
+        </div>
+      </div>
+      <%= link_to "グループ一覧", groups_path, class: 'btn btn-info' %>
+    </div>
+  </div>
+</div>
