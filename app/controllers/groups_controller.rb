@@ -41,6 +41,17 @@ class GroupsController < ApplicationController
       render :edit
     end
   end
+
+  def join
+    @group = Group.find(params[:id])
+    @group.users << current_user
+    redirect_to  groups_path
+  end
+  
+  def destroy
+    @group = Group.find(params[:id])
+    if @group.user.destroy(current_user)
+      redirect_to groups_path
   
   private
     def group_params
